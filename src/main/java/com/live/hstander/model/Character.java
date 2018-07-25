@@ -62,4 +62,32 @@ public class Character
 	{
 		this._helm = helm;
 	}
+
+	public String getInfo()
+	{
+		String info = ""; 
+		info += "Name    : " + this._name + "\n";
+		info += "Class   : " + this._characterClass + "\n";
+		info += "Level   : " + this._level + "\n";
+		info += "Exp     : " + this._expierience + "\n";
+		info += "HP      : " + this._hitpoints + "\n";
+		info += "Damage  : " + this._level + "\n";
+		info += "Defence : " + this._level + "\n";
+		if (this._weapon != null)
+		{
+			info += "Weapon  : " + this._weapon.getName() + "\n";
+			info += "Wpn Dmg : " + this._weapon.getBuff() + "\n";
+		}
+		if (this._armor != null)
+		{
+			info += "Armor   : " + this._armor.getName() + "\n";
+			info += "Armor D : " + this._armor.getBuff() + "\n";
+		}
+		if (this._helm != null)
+		{
+			info += "Helm    : " + this._helm.getName() + "\n";
+			info += "Helm D  : " + this._helm.getBuff() + "\n";
+		}
+		return(info);
+	}
 }
