@@ -2,17 +2,17 @@ package com.live.hstander.model;
 
 public class Character
 {
-	private String _name;
-	private String _characterClass;
-	private int _level;
-	private int _expierience;
-	private int _attack_damage;
-	private int _defence;
-	private int _hitpoints;
-	private Armor _armor;
-	private Weapon _weapon;
-	private Helm _helm;
-	private int[] _position = new int[2];
+	protected String _name;
+	protected String _characterClass;
+	protected int _level;
+	protected int _expierience;
+	protected int _attack_damage;
+	protected int _defence;
+	protected int _hitpoints;
+	protected Armor _armor;
+	protected Weapon _weapon;
+	protected Helm _helm;
+	protected int[] _position = new int[2];
 
 	Character(String name, String characterClass)
 	{

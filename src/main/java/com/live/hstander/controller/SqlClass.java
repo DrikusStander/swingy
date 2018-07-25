@@ -9,8 +9,6 @@ import java.sql.Statement;
 
 import com.live.hstander.model.*;
 
-
-
 public class SqlClass
 {
 	private static Connection connect = null;
@@ -19,7 +17,35 @@ public class SqlClass
 	private static ResultSet resultSet = null;
 
 
-	public static void writeCharacterToDB(String name, String characterClass, int level, int exp, int attDamage, int defecnce, int hp, int weapon, int armor, int helm)
+	public static void updateHeroInDB(Hero hero)
+	{
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/swingy?" + "user=root&password=root&useSSL=false");
+
+			preparedStatement = connect.prepareStatement("Update `Heros` SET  `name` = ?, `class` = ? , `level` = ?, `exp` = ?, `attackDamage` = ?, `defence` = ?, `hp` = ?, `weapon` = ?, `armor` = ?, `helm`= ? WHERE `id`=" + hero.getIndex());
+
+			preparedStatement.setString(1, hero.getName());
+			preparedStatement.setString(2, hero.getCharaterClass());
+			preparedStatement.setInt(3, hero.getLvl());
+			preparedStatement.setInt(4, hero.getExp());
+			preparedStatement.setInt(5, hero.getAttack());
+			preparedStatement.setInt(6, hero.getDefence());
+			preparedStatement.setInt(7, hero.getHP());
+			preparedStatement.setInt(8, hero.getWeapon());
+			preparedStatement.setInt(9, hero.getArmor());
+			preparedStatement.setInt(10, hero.getHelm());
+			close();
+
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+
+	public static void writeHeroToDB(Hero hero)
 	{
 		try
 		{
@@ -28,26 +54,28 @@ public class SqlClass
 
 			preparedStatement = connect.prepareStatement("INSERT INTO `Heros` (`id`, `name`, `class`, `level`, `exp`, `attackDamage`, `defence`, `hp`, `weapon`, `armor`, `helm`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-			preparedStatement.setString(1, name);
-			preparedStatement.setString(2, characterClass);
-			preparedStatement.setInt(3, level);
-			preparedStatement.setInt(4, exp);
-			preparedStatement.setInt(5, attDamage);
-			preparedStatement.setInt(6, defecnce);
-			preparedStatement.setInt(7, hp);
-			preparedStatement.setInt(8, weapon);
-			preparedStatement.setInt(9, armor);
-			preparedStatement.setInt(10, helm);
-			preparedStatement.executeUpdate();
+			preparedStatement.setString(1, hero.getName());
+			preparedStatement.setString(2, hero.getCharaterClass());
+			preparedStatement.setInt(3, hero.getLvl());
+			preparedStatement.setInt(4, hero.getExp());
+			preparedStatement.setInt(5, hero.getAttack());
+			preparedStatement.setInt(6, hero.getDefence());
+			preparedStatement.setInt(7, hero.getHP());
+			preparedStatement.setInt(8, hero.getWeapon());
+			preparedStatement.setInt(9, hero.getArmor());
+			preparedStatement.setInt(10, hero.getHelm());
+
+			statement =  connect.createStatement();
+			resultSet =  statement.executeQuery("SELECT MAX(`id`) FROM `Heros`");
+			resultSet.first();
+			int id = resultSet.getInt(1);
+			hero.setIndex(id);
+			close();
 
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
-		}
-		finally
-		{
-			close();
 		}
 	}
 
@@ -69,7 +97,7 @@ public class SqlClass
 				name = resultSet.getString("type");
 				damage = resultSet.getInt("damage");
 				close();
-				return(new Weapon(name, damage));
+				return(new Weapon(name, damage, index));
 			}
 			else
 				return(null);
@@ -98,7 +126,7 @@ public class SqlClass
 				name = resultSet.getString("type");
 				defence = resultSet.getInt("defence");
 				close();
-				return(new Helm(name, defence));
+				return(new Helm(name, defence, index));
 			}
 			else
 				return(null);
@@ -127,7 +155,7 @@ public class SqlClass
 				name = resultSet.getString("type");
 				defence = resultSet.getInt("defence");
 				close();
-				return(new Armor(name, defence));
+				return(new Armor(name, defence, index));
 			}
 			else
 				return(null);
@@ -176,6 +204,7 @@ public class SqlClass
 
 				close();
 				hero = new Hero(name, characterClass, lvl, exp, attDamage, hp, defence);
+				hero.setIndex(index);
 				hero.setHelm(readHelmDB(helm));
 				hero.setArmor(readArmorDB(armor));
 				hero.setWeapon(readWeaponDB(weapon));

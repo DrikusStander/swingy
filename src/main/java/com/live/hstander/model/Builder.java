@@ -6,7 +6,9 @@ public class Builder
 {
 	public static Hero		newHero(String name, String characterClass)
 	{
-		return(new Hero(name, characterClass));
+		Hero hero = new Hero(name, characterClass);
+		SqlClass.writeHeroToDB(hero);
+		return(hero);
 	}
 
 	public static Hero		loadHero(int index)
