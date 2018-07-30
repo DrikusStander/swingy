@@ -1,5 +1,7 @@
 package com.live.hstander.model;
 
+import java.util.Random;
+
 public class Character
 {
 	protected String _name;
@@ -51,43 +53,77 @@ public class Character
 	public void setArmor(Armor armor)
 	{
 		this._armor = armor;
+		if (this._armor != null)
+			this._defence += this._armor.getBuff();
 	}
 
 	public void setWeapon(Weapon weapon)
 	{
 		this._weapon = weapon;
+		if (this._weapon != null)
+			this._attack_damage += this._weapon.getBuff();
 	}
 
 	public void setHelm(Helm helm)
 	{
 		this._helm = helm;
+		if (this._helm != null)
+			this._hitpoints += this._helm.getBuff();
 	}
 
 	public String getInfo()
 	{
-		String info = ""; 
+		String info = "";
 		info += "Name    : " + this._name + "\n";
 		info += "Class   : " + this._characterClass + "\n";
 		info += "Level   : " + this._level + "\n";
 		info += "Exp     : " + this._expierience + "\n";
 		info += "HP      : " + this._hitpoints + "\n";
-		info += "Damage  : " + this._level + "\n";
-		info += "Defence : " + this._level + "\n";
+		info += "Damage  : " + this._attack_damage + "\n";
+		info += "Defence : " + this._defence + "\n";
 		if (this._weapon != null)
 		{
 			info += "Weapon  : " + this._weapon.getName() + "\n";
-			info += "Wpn Dmg : " + this._weapon.getBuff() + "\n";
+			// info += "Wpn Dmg : " + this._weapon.getBuff() + "\n";
 		}
 		if (this._armor != null)
 		{
 			info += "Armor   : " + this._armor.getName() + "\n";
-			info += "Armor D : " + this._armor.getBuff() + "\n";
+			// info += "Armor D : " + this._armor.getBuff() + "\n";
 		}
 		if (this._helm != null)
 		{
 			info += "Helm    : " + this._helm.getName() + "\n";
-			info += "Helm D  : " + this._helm.getBuff() + "\n";
+			// info += "Helm D  : " + this._helm.getBuff() + "\n";
 		}
 		return(info);
 	}
+
+	public int getHP()
+	{
+		return(this._hitpoints);
+	}
+
+	public int getLvl()
+	{
+		return(this._level);
+	}
+
+	public void attack(Character opponent)
+	{
+		int damage = this._attack_damage;
+		Random rand = new Random();
+		int chance = rand.nextInt(4);
+		if (chance == 1)
+			opponent.takeDamage(damage);
+	}
+
+	public void takeDamage(int damage)
+	{
+		int damage_taken = damage - this._defence;
+		this._hitpoints -= damage_taken;
+
+	}
+
+
 }

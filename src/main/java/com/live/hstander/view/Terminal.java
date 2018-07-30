@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 import com.live.hstander.controller.SqlClass;
 
-public class Terminal
+public class Terminal implements Interface
 {
 	public int newGame()
 	{
@@ -135,5 +135,85 @@ public class Terminal
 			return(loadHero());
 		}
 		return(index);
+	}
+
+	public int getDir()
+	{
+		String line;
+		int val = 0;
+		try
+		{
+			System.out.println("Please select a direction to move in");
+			System.out.println("1. North");
+			System.out.println("2. East");
+			System.out.println("3. South");
+			System.out.println("4. West");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			line = reader.readLine();
+			line.trim();
+			try
+			{
+				val = Integer.valueOf(line);
+				if (val < 1 || val > 4)
+					return(getDir());
+				else
+					return(val);
+			}
+			catch(NumberFormatException e)
+			{
+				return (getDir());
+			}
+		}
+		catch(IOException e)
+		{
+			return(getDir());
+		}
+		// return(val);
+	}
+
+	public void gameOver(int gameOver)
+	{
+		if (gameOver == 1)
+			System.out.println("Congradulations You Won!!");
+		else
+			System.out.println("Sorry You Lost!!");
+
+	}
+
+	public void putCharacterInfo(String info)
+	{
+		System.out.println(info);
+	}
+
+	public int enemyFound(String enemyInfo)
+	{
+		String line;
+		int val;
+		try
+		{
+			System.out.println("An Enemy appeared!");
+			System.out.println(enemyInfo);
+			System.out.println("1. Fight");
+			System.out.println("2. Run");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			line = reader.readLine();
+			line.trim();
+			try
+			{
+				val = Integer.valueOf(line);
+				if (val < 1 || val > 2)
+					return(enemyFound(enemyInfo));
+				else
+					return(val);
+			}
+			catch(NumberFormatException e)
+			{
+				return (enemyFound(enemyInfo));
+			}
+		}
+		catch(IOException e)
+		{
+			return(enemyFound(enemyInfo));
+		}
 	}
 }

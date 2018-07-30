@@ -32,7 +32,7 @@ public class SqlClass
 			preparedStatement.setInt(4, hero.getExp());
 			preparedStatement.setInt(5, hero.getAttack());
 			preparedStatement.setInt(6, hero.getDefence());
-			preparedStatement.setInt(7, hero.getHP());
+			preparedStatement.setInt(7, 100);
 			preparedStatement.setInt(8, hero.getWeapon());
 			preparedStatement.setInt(9, hero.getArmor());
 			preparedStatement.setInt(10, hero.getHelm());
@@ -205,7 +205,7 @@ public class SqlClass
 				helm = resultSet.getInt("helm");
 
 				close();
-				hero = new Hero(name, characterClass, lvl, exp, attDamage, hp, defence);
+				hero = new Hero(name, characterClass, lvl, exp, hp, attDamage, defence);
 				hero.setIndex(index);
 				hero.setHelm(readHelmDB(helm));
 				hero.setArmor(readArmorDB(armor));
@@ -253,10 +253,11 @@ public class SqlClass
 				helm = resultSet.getInt("helm");
 
 				close();
-				enemy = new Enemy(name, characterClass, lvl, exp, attDamage, hp, defence);
+				enemy = new Enemy(name, characterClass, lvl, exp, hp, attDamage, defence);
 				enemy.setHelm(readHelmDB(helm));
 				enemy.setArmor(readArmorDB(armor));
 				enemy.setWeapon(readWeaponDB(weapon));
+				return(enemy);
 			}
 		}
 		catch(Exception e)

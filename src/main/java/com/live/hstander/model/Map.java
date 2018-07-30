@@ -1,6 +1,5 @@
 package com.live.hstander.model;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Map
@@ -44,5 +43,62 @@ public class Map
 			}
 			System.out.print("\n");
 		}
+	}
+
+	public int checkHeroPos()
+	{
+		int x = this._hero.getX();
+		int y = this._hero.getY();
+		if (x < 0 || x >= this._size)
+			return(1);
+		if (y < 0 || y >= this._size)
+			return(1);
+		return(0);
+	}
+
+	public int checkEnemyPos()
+	{
+		int heroX = this._hero.getX();
+		int heroY = this._hero.getY();
+		if ((heroX >= 0 && heroX < this._size) && (heroY >= 0 && heroY < this._size))
+		{
+			if (this._map[heroY][heroX] != null)
+			{
+				return(1);
+			}
+		}
+		return(0);
+	}
+
+	public int fight()
+	{
+		int x = this._hero.getX();
+		int y = this._hero.getY();
+		System.out.println("\n***********************************");
+		System.out.println("X:" + x + "Y:" + y);
+		while(true)
+		{
+			this._hero.attack(this._map[y][x]);
+			if (this._map[x][y].getHP() <= 0)
+			{
+				/*
+					Add expierience gain here
+					Add item drop here
+				*/
+				this._hero.expGain(this._map[y][x].getLvl());
+				this._map[x][y] = null;
+				return(1);
+			}
+			this._map[y][x].attack(this._hero);
+			if (this._hero.getHP() <= 0)
+				return(0);
+		}
+	}
+
+	public String enemyInfo()
+	{
+		int x = this._hero.getX();
+		int y = this._hero.getY();
+		return(this._map[y][x].getInfo());
 	}
 }

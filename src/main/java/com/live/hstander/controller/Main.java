@@ -7,10 +7,27 @@ public class Main
 {
 	public static void main( String[] args )
     {
-
-		Terminal term = new Terminal();
+		Interface term = null;
 		Hero hero = null;
-
+		Map map = null;
+		Game game = null;
+		if (args.length > 0)
+		{
+			if (args[0].equals("gui"))
+				term = new GUI();
+			else if (args[0].equals("console"))
+				term = new Terminal();
+			else
+			{
+				System.out.println("Invalid Argument");
+				System.exit(-1);
+			}
+		}
+		else
+		{
+			System.out.println("Invalid Argument");
+			System.exit(-1);
+		}
 		int option = term.newGame();
 		if (option == 1)
 		{
@@ -25,20 +42,13 @@ public class Main
 			}
 			else
 				hero = Builder.newHero(term.heroName(), term.heroClass());
-			// hero = Builder.loadHero(index);
 		}
-		else
-		{
-
-		}
-
 		if (hero != null)
 		{
-			System.out.print(hero.getInfo());
-
-			Map map = new Map(hero);
+			term.putCharacterInfo(hero.getInfo());
+			map = new Map(hero);
+			game = new Game(term, map, hero);
 		}
-
-
+		
 	}
 }

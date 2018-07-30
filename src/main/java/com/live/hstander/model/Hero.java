@@ -1,5 +1,7 @@
 package com.live.hstander.model;
 
+import java.util.Random;
+
 import com.live.hstander.controller.SqlClass;
 
 public class Hero extends Character
@@ -36,19 +38,11 @@ public class Hero extends Character
 		return(this._characterClass);
 	}
 
-	public int getLvl()
-	{
-		return(this._level);
-	}
+
 
 	public int getExp()
 	{
 		return(this._expierience);
-	}
-
-	public int getHP()
-	{
-		return(this._hitpoints);
 	}
 
 	public int getDefence()
@@ -82,8 +76,7 @@ public class Hero extends Character
 		return(0);
 	}
 
-	public int getIndex()
-	{
+	public int getIndex()	{
 		return(this._index);
 	}
 
@@ -91,19 +84,46 @@ public class Hero extends Character
 	{
 		if (dir == 1)
 		{
-			this._position[1] += 1; 
-		}
-		else if (dir == 2)
-		{
 			this._position[1] -= 1; 
 		}
 		else if (dir == 3)
 		{
-			this._position[0] -= 1; 
+			this._position[1] += 1; 
 		}
 		else if (dir == 4)
 		{
+			this._position[0] -= 1; 
+		}
+		else if (dir == 2)
+		{
 			this._position[0] += 1; 
 		}
+	}
+	public int getX()
+	{
+		return(this._position[0]);
+	}
+
+	public int getY()
+	{
+		return(this._position[1]);
+	}
+
+	public void expGain(int lvl)
+	{
+		this._expierience += (lvl * 10);
+		if (this._expierience >= (this._level * 1000 + ((this._level - 1)*2) * 450))
+		{
+			this._level += 1;
+		}
+	}
+
+	public void attack(Character opponent)
+	{
+		int damage = this._attack_damage;
+		Random rand = new Random();
+		int chance = rand.nextInt(2);
+		if (chance == 1)
+			opponent.takeDamage(damage);
 	}
 }
