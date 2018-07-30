@@ -9,17 +9,18 @@ public class Map
 	private Enemy[][] _map;
 	private int _size;
 
-	public Map(Hero hero, int size)
+	public Map(Hero hero)
 	{
 		this._hero = hero;
-		this.getMapSize(size);
+		this.getMapSize();
+		this._hero.setPos(this._size / 2, this._size / 2);
 		this._map = new Enemy[this._size][this._size];
 		
 		this.generateEnemies();
 		System.out.println("map size is : " + this._size + " x " + this._size);
 	}
 
-	private void getMapSize(int size)
+	private void getMapSize()
 	{
 		int level = this._hero.getLvl();
 		this._size = (level - 1) * 5 + 10 - (level % 2);

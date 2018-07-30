@@ -36,6 +36,7 @@ public class SqlClass
 			preparedStatement.setInt(8, hero.getWeapon());
 			preparedStatement.setInt(9, hero.getArmor());
 			preparedStatement.setInt(10, hero.getHelm());
+			preparedStatement.execute();
 			close();
 
 		}
@@ -64,6 +65,7 @@ public class SqlClass
 			preparedStatement.setInt(8, hero.getWeapon());
 			preparedStatement.setInt(9, hero.getArmor());
 			preparedStatement.setInt(10, hero.getHelm());
+			preparedStatement.execute();
 
 			statement =  connect.createStatement();
 			resultSet =  statement.executeQuery("SELECT MAX(`id`) FROM `Heros`");
@@ -289,4 +291,42 @@ public class SqlClass
 		}
 	}
 
+	public static int readHeros()
+	{
+		String name;
+		String characterClass;
+		int id;
+		int maxid = 0;
+		try
+		{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost/swingy?" + "user=root&password=root&useSSL=false");
+
+			statement = connect.createStatement();
+			resultSet = statement.executeQuery("SELECT * FROM `Heros` ");
+			
+			while(resultSet.next())
+			{
+				name = resultSet.getString("name");
+				characterClass = resultSet.getString("class");
+				id = resultSet.getInt("id");
+
+				System.out.println(id + ". " + name + " " + characterClass);
+			}
+			statement =  connect.createStatement();
+			resultSet =  statement.executeQuery("SELECT MAX(`id`) FROM `Heros`");
+			resultSet.first();
+			maxid = resultSet.getInt(1);
+
+			close();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+		return(maxid);
+	}
 }
+
+
+	

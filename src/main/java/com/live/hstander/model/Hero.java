@@ -87,4 +87,23 @@ public class Hero extends Character
 		return(this._index);
 	}
 
+	public void moveHero(int dir)
+	{
+		if (dir == 1)
+		{
+			this._position[1] += 1; 
+		}
+		else if (dir == 2)
+		{
+			this._position[1] -= 1; 
+		}
+		else if (dir == 3)
+		{
+			this._position[0] -= 1; 
+		}
+		else if (dir == 4)
+		{
+			this._position[0] += 1; 
+		}
+	}
 }
