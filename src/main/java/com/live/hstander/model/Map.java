@@ -2,6 +2,9 @@ package com.live.hstander.model;
 
 import java.util.Random;
 
+import com.live.hstander.view.Interface;
+import com.live.hstander.view.Terminal;
+
 public class Map
 {
 	private Hero _hero;
@@ -64,29 +67,33 @@ public class Map
 		{
 			if (this._map[heroY][heroX] != null)
 			{
+				this._map[heroY][heroX].getInfo();
 				return(1);
 			}
 		}
 		return(0);
 	}
 
-	public int fight()
+	public int fight(Interface term)
 	{
 		int x = this._hero.getX();
 		int y = this._hero.getY();
-		System.out.println("\n***********************************");
-		System.out.println("X:" + x + "Y:" + y);
 		while(true)
 		{
 			this._hero.attack(this._map[y][x]);
-			if (this._map[x][y].getHP() <= 0)
+			if (this._map[y][x].getHP() <= 0)
 			{
 				/*
-					Add expierience gain here
 					Add item drop here
 				*/
+				Item droped_item = Builder.itemGenerator();
+				if (droped_item != null)
+				{
+					term.droppedItem(droped_item, this._hero);
+					// System.out.println(droped_item.getName());
+				}
 				this._hero.expGain(this._map[y][x].getLvl());
-				this._map[x][y] = null;
+				this._map[y][x] = null;
 				return(1);
 			}
 			this._map[y][x].attack(this._hero);
@@ -101,4 +108,6 @@ public class Map
 		int y = this._hero.getY();
 		return(this._map[y][x].getInfo());
 	}
+
+
 }

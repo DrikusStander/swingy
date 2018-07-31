@@ -1,8 +1,14 @@
 package com.live.hstander.model;
 
 import java.util.Random;
+import java.util.Set;
+import java.util.logging.Level;
 
 import com.live.hstander.controller.SqlClass;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 public class Hero extends Character
 {
@@ -38,7 +44,25 @@ public class Hero extends Character
 		return(this._characterClass);
 	}
 
-
+	public int getTrueAttack()
+	{
+		int att = this._attack_damage;
+		if (this._weapon != null)
+		{
+			att -= this._weapon.getBuff();
+		}
+		return(att);
+	}
+	
+	public int getTrueDeff()
+	{
+		int deff = this._defence;
+		if (this._armor != null)
+		{
+			deff -= this._armor.getBuff();
+		}
+		return(deff);
+	}
 
 	public int getExp()
 	{
@@ -125,5 +149,19 @@ public class Hero extends Character
 		int chance = rand.nextInt(2);
 		if (chance == 1)
 			opponent.takeDamage(damage);
+	}
+
+	public String validate()
+	{
+		String errors = "";
+		java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.OFF);
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<Hero>> violations = validator.validate(this);
+		for (ConstraintViolation<Hero> violation : violations) 
+		{
+			errors += violation.getMessage() + "\n";
+		}
+		return(errors);
 	}
 }

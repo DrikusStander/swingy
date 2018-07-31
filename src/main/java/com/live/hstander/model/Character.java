@@ -2,8 +2,13 @@ package com.live.hstander.model;
 
 import java.util.Random;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class Character
 {
+	@NotBlank(message = "Name canot be Nulll or Blank")
+	@Size(min = 4, max = 255, message = "Name must be between 4 and 255 characters")
 	protected String _name;
 	protected String _characterClass;
 	protected int _level;

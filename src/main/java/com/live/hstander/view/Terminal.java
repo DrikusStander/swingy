@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.live.hstander.controller.SqlClass;
+import com.live.hstander.model.*;
+
 
 public class Terminal implements Interface
 {
@@ -214,6 +216,41 @@ public class Terminal implements Interface
 		catch(IOException e)
 		{
 			return(enemyFound(enemyInfo));
+		}
+	}
+
+	public void droppedItem(Item item, Hero hero)
+	{
+		String line;
+		try
+		{
+			if (item instanceof Armor)
+			{
+				System.out.println(item.getName() + " Armor Droped. Equip? Y/N");
+			}
+			else if (item instanceof Weapon)
+			{
+				System.out.println(item.getName() + " Droped. Equip? Y/N");
+			}
+			else if (item instanceof Helm)
+			{
+				System.out.println(item.getName() + " Helm Droped. Equip? Y/N");
+			}
+			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+			line = reader.readLine();
+			line.trim();
+			if (line.equals("Y") || line.equals("Yes"))
+			{
+				Builder.equipItem(item, hero);
+			}
+			else
+			{
+				return;
+			}
+		}
+		catch(IOException e)
+		{
+			droppedItem(item, hero);
 		}
 	}
 }

@@ -26,12 +26,13 @@ public class SqlClass
 
 			preparedStatement = connect.prepareStatement("Update `Heros` SET  `name` = ?, `class` = ? , `level` = ?, `exp` = ?, `attackDamage` = ?, `defence` = ?, `hp` = ?, `weapon` = ?, `armor` = ?, `helm`= ? WHERE `id`=" + hero.getIndex());
 
+
 			preparedStatement.setString(1, hero.getName());
 			preparedStatement.setString(2, hero.getCharaterClass());
 			preparedStatement.setInt(3, hero.getLvl());
 			preparedStatement.setInt(4, hero.getExp());
-			preparedStatement.setInt(5, hero.getAttack());
-			preparedStatement.setInt(6, hero.getDefence());
+			preparedStatement.setInt(5, hero.getTrueAttack());
+			preparedStatement.setInt(6, hero.getTrueDeff());
 			preparedStatement.setInt(7, 100);
 			preparedStatement.setInt(8, hero.getWeapon());
 			preparedStatement.setInt(9, hero.getArmor());

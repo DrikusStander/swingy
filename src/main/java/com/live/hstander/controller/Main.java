@@ -29,9 +29,11 @@ public class Main
 			System.exit(-1);
 		}
 		int option = term.newGame();
+		System.out.println("a Option was set");
 		if (option == 1)
 		{
-			hero = Builder.newHero(term.heroName(), term.heroClass());
+			while(hero == null) 
+				hero = Builder.newHero(term.heroName(), term.heroClass(), term);
 		}
 		else if (option == 2)
 		{
@@ -41,7 +43,7 @@ public class Main
 				hero = Builder.loadHero(index);
 			}
 			else
-				hero = Builder.newHero(term.heroName(), term.heroClass());
+				hero = Builder.newHero(term.heroName(), term.heroClass(), term);
 		}
 		if (hero != null)
 		{

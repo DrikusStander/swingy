@@ -1,5 +1,7 @@
 package com.live.hstander.view;
 
+import com.live.hstander.model.*;
+
 public interface Interface
 {
 	public int newGame();
@@ -10,4 +12,5 @@ public interface Interface
 	public void gameOver(int gameOver);
 	public void putCharacterInfo(String info);
 	public int enemyFound(String enemyInfo);
+	public void droppedItem(Item item, Hero hero);
 }

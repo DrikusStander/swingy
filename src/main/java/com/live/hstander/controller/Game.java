@@ -23,7 +23,7 @@ public class Game
 				int fight = term.enemyFound(map.enemyInfo());
 				if (fight == 1)
 				{
-					if (map.fight() == 0)
+					if (map.fight(term) == 0)
 						gameOver = -1;
 					else
 						term.putCharacterInfo("You Won the Battle\n" + hero.getInfo());
@@ -33,7 +33,7 @@ public class Game
 					Random rand = new Random();
 					if (rand.nextInt(2) == 1)
 					{
-						if (map.fight() == 0)
+						if (map.fight(term) == 0)
 							gameOver = -1;
 						else
 							term.putCharacterInfo("You Won the Battle\n" + hero.getInfo());
@@ -41,13 +41,13 @@ public class Game
 					else
 					{
 						if (dir == 1)
-							dir = 2;
-						else if (dir == 2)
-							dir = 1;
-						else if (dir == 3)
-							dir = 4;
-						else if (dir == 4)
 							dir = 3;
+						else if (dir == 2)
+							dir = 4;
+						else if (dir == 3)
+							dir = 1;
+						else if (dir == 4)
+							dir = 2;
 						hero.moveHero(dir);
 					}
 				}
