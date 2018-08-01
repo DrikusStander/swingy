@@ -54,7 +54,6 @@ public class Game
 			}
 		}
 		term.gameOver(gameOver);
-		term.putCharacterInfo(hero.getInfo());
 		SqlClass.updateHeroInDB(hero);
 	}
 }

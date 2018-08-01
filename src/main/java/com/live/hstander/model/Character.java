@@ -89,17 +89,14 @@ public class Character
 		if (this._weapon != null)
 		{
 			info += "Weapon  : " + this._weapon.getName() + "\n";
-			// info += "Wpn Dmg : " + this._weapon.getBuff() + "\n";
 		}
 		if (this._armor != null)
 		{
 			info += "Armor   : " + this._armor.getName() + "\n";
-			// info += "Armor D : " + this._armor.getBuff() + "\n";
 		}
 		if (this._helm != null)
 		{
 			info += "Helm    : " + this._helm.getName() + "\n";
-			// info += "Helm D  : " + this._helm.getBuff() + "\n";
 		}
 		return(info);
 	}

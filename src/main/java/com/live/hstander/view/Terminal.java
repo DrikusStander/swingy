@@ -112,7 +112,7 @@ public class Terminal implements Interface
 		String line;
 		try
 		{
-			maxid = SqlClass.readHeros();
+			maxid = SqlClass.readHeros(this);
 			if (maxid > 0)
 			{
 				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -170,7 +170,6 @@ public class Terminal implements Interface
 		{
 			return(getDir());
 		}
-		// return(val);
 	}
 
 	public void gameOver(int gameOver)

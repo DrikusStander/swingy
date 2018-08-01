@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.live.hstander.model.*;
+import com.live.hstander.view.Interface;
 
 public class SqlClass
 {
@@ -293,12 +294,13 @@ public class SqlClass
 		}
 	}
 
-	public static int readHeros()
+	public static int readHeros(Interface term)
 	{
 		String name;
 		String characterClass;
 		int id;
 		int maxid = 0;
+		String heros = "";
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -312,9 +314,10 @@ public class SqlClass
 				name = resultSet.getString("name");
 				characterClass = resultSet.getString("class");
 				id = resultSet.getInt("id");
-
-				System.out.println(id + ". " + name + " " + characterClass);
+				heros += id + ". " + name + " " + characterClass + "\n";
 			}
+			if (heros.length() > 0)
+				term.putCharacterInfo(heros);
 			statement =  connect.createStatement();
 			resultSet =  statement.executeQuery("SELECT MAX(`id`) FROM `Heros`");
 			resultSet.first();

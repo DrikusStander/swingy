@@ -83,14 +83,10 @@ public class Map
 			this._hero.attack(this._map[y][x]);
 			if (this._map[y][x].getHP() <= 0)
 			{
-				/*
-					Add item drop here
-				*/
 				Item droped_item = Builder.itemGenerator();
 				if (droped_item != null)
 				{
 					term.droppedItem(droped_item, this._hero);
-					// System.out.println(droped_item.getName());
 				}
 				this._hero.expGain(this._map[y][x].getLvl());
 				this._map[y][x] = null;
