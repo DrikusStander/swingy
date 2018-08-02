@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 02, 2018 at 08:38 AM
+-- Generation Time: Aug 02, 2018 at 01:10 PM
 -- Server version: 8.0.11
 -- PHP Version: 7.2.8
 
@@ -30,11 +30,13 @@ USE `swingy`;
 -- Table structure for table `Armor`
 --
 
-CREATE TABLE `Armor` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `Armor`;
+CREATE TABLE IF NOT EXISTS `Armor` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
-  `defence` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `defence` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Truncate table before insert `Armor`
@@ -56,8 +58,9 @@ INSERT INTO `Armor` (`id`, `type`, `defence`) VALUES
 -- Table structure for table `Enemy`
 --
 
-CREATE TABLE `Enemy` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `Enemy`;
+CREATE TABLE IF NOT EXISTS `Enemy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `class` varchar(255) NOT NULL,
   `level` int(11) NOT NULL,
@@ -67,8 +70,12 @@ CREATE TABLE `Enemy` (
   `hp` int(11) NOT NULL,
   `weapon` int(11) NOT NULL,
   `armor` int(11) NOT NULL,
-  `helm` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `helm` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `weapon` (`weapon`),
+  KEY `armor` (`armor`),
+  KEY `helm` (`helm`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Truncate table before insert `Enemy`
@@ -91,11 +98,13 @@ INSERT INTO `Enemy` (`id`, `name`, `class`, `level`, `exp`, `attackDamage`, `def
 -- Table structure for table `Helm`
 --
 
-CREATE TABLE `Helm` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `Helm`;
+CREATE TABLE IF NOT EXISTS `Helm` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
-  `defence` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `defence` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Truncate table before insert `Helm`
@@ -117,8 +126,9 @@ INSERT INTO `Helm` (`id`, `type`, `defence`) VALUES
 -- Table structure for table `Heros`
 --
 
-CREATE TABLE `Heros` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `Heros`;
+CREATE TABLE IF NOT EXISTS `Heros` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `class` varchar(255) NOT NULL,
   `level` int(11) NOT NULL,
@@ -128,25 +138,38 @@ CREATE TABLE `Heros` (
   `hp` int(11) NOT NULL,
   `weapon` int(11) NOT NULL,
   `armor` int(11) NOT NULL,
-  `helm` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `helm` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `weapon` (`weapon`),
+  KEY `armor` (`armor`),
+  KEY `helm` (`helm`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Truncate table before insert `Heros`
 --
 
 TRUNCATE TABLE `Heros`;
+--
+-- Dumping data for table `Heros`
+--
+
+INSERT INTO `Heros` (`id`, `name`, `class`, `level`, `exp`, `attackDamage`, `defence`, `hp`, `weapon`, `armor`, `helm`) VALUES
+(1, 'S\'tan', 'Mage', 1, 0, 5, 0, 100, 0, 0, 0);
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `Weapons`
 --
 
-CREATE TABLE `Weapons` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `Weapons`;
+CREATE TABLE IF NOT EXISTS `Weapons` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(255) NOT NULL,
-  `damage` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `damage` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Truncate table before insert `Weapons`
@@ -163,80 +186,6 @@ INSERT INTO `Weapons` (`id`, `type`, `damage`) VALUES
 (3, 'staff', 3),
 (4, 'crosbow', 4),
 (5, 'wip', 1);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `Armor`
---
-ALTER TABLE `Armor`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `Enemy`
---
-ALTER TABLE `Enemy`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `weapon` (`weapon`),
-  ADD KEY `armor` (`armor`),
-  ADD KEY `helm` (`helm`);
-
---
--- Indexes for table `Helm`
---
-ALTER TABLE `Helm`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `Heros`
---
-ALTER TABLE `Heros`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `weapon` (`weapon`),
-  ADD KEY `armor` (`armor`),
-  ADD KEY `helm` (`helm`);
-
---
--- Indexes for table `Weapons`
---
-ALTER TABLE `Weapons`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `Armor`
---
-ALTER TABLE `Armor`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `Enemy`
---
-ALTER TABLE `Enemy`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `Helm`
---
-ALTER TABLE `Helm`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `Heros`
---
-ALTER TABLE `Heros`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `Weapons`
---
-ALTER TABLE `Weapons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
