@@ -28,6 +28,7 @@ public class GUI implements Interface, ActionListener
 	private JButton moveEast;
 	private JButton moveSouth;
 	private JButton moveWest;
+	private int playerArea_active;
 	
 	private JFrame frame;
 	private JTextArea outputArea;
@@ -96,6 +97,7 @@ public class GUI implements Interface, ActionListener
 
 	public String heroName()
 	{
+		removePlayArea();
 		JLabel label = new JLabel("Enter hero name");
 		JTextField textField = new JTextField();
 		JButton submit;
@@ -179,7 +181,6 @@ public class GUI implements Interface, ActionListener
 			}
 			if (returnVal != 0)
 			{
-				
 				str = (String)listModel.get(index);
 				frame.remove(listScroll);
 				frame.remove(label);
@@ -194,7 +195,7 @@ public class GUI implements Interface, ActionListener
 
 	private void setPlayDisplay()
 	{
-		
+		playerArea_active = 1;
 
 		moveNorth = new JButton("N");
 		moveEast = new JButton("E");
@@ -221,12 +222,16 @@ public class GUI implements Interface, ActionListener
 
 	private void removePlayArea()
 	{
-		frame.remove(moveNorth);
-		frame.remove(moveEast);
-		frame.remove(moveSouth);
-		frame.remove(moveWest);
-		frame.setVisible(true);
-		frame.repaint();
+		if (playerArea_active > 0)
+		{
+			frame.remove(moveNorth);
+			frame.remove(moveEast);
+			frame.remove(moveSouth);
+			frame.remove(moveWest);
+			frame.setVisible(true);
+			frame.repaint();
+		}
+		playerArea_active = 0;
 	}
 
 	public int loadHero()
@@ -275,6 +280,17 @@ public class GUI implements Interface, ActionListener
 		}
 		else
 		{
+			frame.remove(submit);
+			outputArea.setText("No Heros to load");
+			try
+			{
+				Thread.sleep(2000);
+			}
+			catch(InterruptedException e)
+			{
+
+			}
+			
 			return(-1);
 		}
 		return(returnVal);

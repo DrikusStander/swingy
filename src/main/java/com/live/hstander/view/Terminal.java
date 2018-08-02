@@ -157,17 +157,22 @@ public class Terminal implements Interface
 			{
 				val = Integer.valueOf(line);
 				if (val < 1 || val > 4)
+				{
+					System.out.println("Invalid input");
 					return(getDir());
+				}
 				else
 					return(val);
 			}
 			catch(NumberFormatException e)
 			{
+				System.out.println("Invalid input");
 				return (getDir());
 			}
 		}
 		catch(IOException e)
 		{
+			System.out.println("Invalid input");
 			return(getDir());
 		}
 	}

@@ -47,9 +47,12 @@ public class Main
 			}
 			else
 			{
-				String name = term.heroName();
-				String hclass = term.heroClass();
-				hero = Builder.newHero(name, hclass, term);
+				while(hero == null)
+				{
+					String name = term.heroName();
+					String hclass = term.heroClass();
+					hero = Builder.newHero(name, hclass, term);
+				}
 			}
 		}
 		if (hero != null)
